@@ -125,7 +125,7 @@ namespace senai_lovePets_webApi.Repositories
         /// <returns>Uma lista de atendimentos</returns>
         public List<Atendimento> ListarTodos()
         {
-            return ctx.Atendimentos
+            return ctx.Atendimentos 
                 .Include("IdPetNavigation")
                 .Include(a => a.IdVeterinarioNavigation)
                 .Include(a => a.IdSituacaoNavigation)
