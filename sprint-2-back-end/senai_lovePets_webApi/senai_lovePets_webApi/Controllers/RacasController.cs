@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using senai_lovePets_webApi.Domains;
 using senai_lovePets_webApi.Interfaces;
 using senai_lovePets_webApi.Repositories;
 using System;
@@ -19,6 +20,62 @@ namespace senai_lovePets_webApi.Controllers
         public RacasController()
         {
             _racaRepository = new RacaRepository();
+        }
+
+        [HttpGet]
+       public IActionResult ListarTodos()
+       {
+           try
+           {
+               return Ok(_racaRepository.Listar());
+           }
+           catch (Exception erro)
+           {
+               return BadRequest(erro);
+           }
+       }
+
+        [HttpGet("{idRaca}")]
+        public IActionResult BuscarPorId(int idRaca)
+        {
+            try
+            {
+                return Ok(_racaRepository.BuscarPorID(idRaca));
+            }
+            catch (Exception erro)
+            {
+                return BadRequest(erro);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Cadastrar(Raca novaRaca)
+        {
+            try
+            {
+                _racaRepository.Cadastrar(novaRaca);
+
+                return StatusCode(201);
+            }
+            catch (Exception erro)
+            {
+                return BadRequest(erro);
+            }
+        }
+
+        [HttpPut("{idRaca}")]
+        public IActionResult Atualizar(int idRaca, Raca racaAtualizada)
+        {
+            try
+            {
+                _racaRepository.Atualizar(idRaca, racaAtualizada);
+
+                return NoContent();
+            }
+            catch (Exception erro)
+            {
+                return BadRequest(erro);
+            }
         }
     }
 }

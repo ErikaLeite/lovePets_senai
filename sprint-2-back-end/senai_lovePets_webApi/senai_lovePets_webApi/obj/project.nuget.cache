@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zZYJ0zKuTwdmpFvlnfpt+tEpPfdnRh6T3qDwNf42OVX8H0jxZmFINI1YOHLP6qVw4uKDHwFSgWHydmyxU/AyJA==",
+  "dgSpecHash": "KONuzGtW4mFBUwtL3PM93xP/LwEfAN5RHlqekouwQPWP2YieYBsK4mInRTwOPuF1hDtdoZX5FA+eVRmtgXYoGg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\41636997830\\Desktop\\recu\\lovePets_senai\\sprint-2-back-end\\senai_lovePets_webApi\\senai_lovePets_webApi\\senai_lovePets_webApi.csproj",
+  "projectFilePath": "C:\\Users\\41636997830\\Desktop\\recuperacao\\lovePets_senai\\sprint-2-back-end\\senai_lovePets_webApi\\senai_lovePets_webApi\\senai_lovePets_webApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\41636997830\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\41636997830\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\5.0.8\\microsoft.aspnetcore.authentication.jwtbearer.5.0.8.nupkg.sha512",

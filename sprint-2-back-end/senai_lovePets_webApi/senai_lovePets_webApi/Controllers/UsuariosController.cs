@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using senai_lovePets_webApi.Domains;
 using senai_lovePets_webApi.Interfaces;
 using senai_lovePets_webApi.Repositories;
 using System;
@@ -31,6 +32,49 @@ namespace senai_lovePets_webApi.Controllers
             catch (Exception erro)
             {
 
+                return BadRequest(erro);
+            }
+        }
+
+        [HttpGet("{idUser}")]
+        public IActionResult BuscarPorId(int idUser)
+        {
+            try
+            {
+                return Ok(_usuarioRepository.BuscarPorID(idUser));
+            }
+            catch (Exception erro)
+            {
+                return BadRequest(erro);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Cadastrar(Usuario novoUser)
+        {
+            try
+            {
+                _usuarioRepository.Cadastrar(novoUser);
+
+                return StatusCode(201);
+            }
+            catch (Exception erro)
+            {
+                return BadRequest(erro);
+            }
+        }
+
+        [HttpPut("{idUser}")]
+        public IActionResult Atualizar(int idUser, Usuario userAtualizado)
+        {
+            try
+            {
+                _usuarioRepository.Atualizar(idUser, userAtualizado);
+
+                return NoContent();
+            }
+            catch (Exception erro)
+            {
                 return BadRequest(erro);
             }
         }

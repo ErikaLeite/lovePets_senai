@@ -50,17 +50,19 @@ namespace senai_lovePets_webApi.Repositories
 
         public void Cadastrar(Veterinario novoVet)
         {
-            throw new NotImplementedException();
+            ctx.Veterinarios.Add(novoVet);
+            ctx.SaveChanges();
         }
 
         public void Deletar(int id)
         {
-            throw new NotImplementedException();
+            ctx.Veterinarios.Remove(BuscarPorID(id));
+            ctx.SaveChanges();
         }
 
         public List<Veterinario> Listar()
         {
-            throw new NotImplementedException();
+            return ctx.Veterinarios.ToList();
         }
     }
 }

@@ -29,7 +29,7 @@ namespace senai_lovePets_webApi.Controllers
         /// </summary>
         /// <returns>Um status code 200 - Ok com o conteúdo da lista</returns>
         // [Authorize(Roles = "1")]
-        [HttpGet]
+       [HttpGet]
         public IActionResult ListarTodos()
         {
             try

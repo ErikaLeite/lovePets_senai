@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using senai_lovePets_webApi.Domains;
 using senai_lovePets_webApi.Interfaces;
 using senai_lovePets_webApi.Repositories;
 using System;
@@ -20,5 +21,62 @@ namespace senai_lovePets_webApi.Controllers
         {
             _clinicaRepository = new ClinicaRepository();
         }
+
+       [HttpGet]
+       public IActionResult ListarTodos()
+       {
+           try
+           {
+               return Ok(_clinicaRepository.Listar());
+           }
+           catch (Exception erro)
+           {
+               return BadRequest(erro);
+           }
+       }
+        [HttpGet("{idClinica}")]
+        public IActionResult BuscarPorId(int idClinica)
+        {
+            try
+            {
+                return Ok(_clinicaRepository.BuscarPorID(idClinica));
+            }
+            catch (Exception erro)
+            {
+                return BadRequest(erro);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Cadastrar(Clinica novaClinica )
+        {
+            try
+            {
+                _clinicaRepository.Cadastrar(novaClinica);
+
+                return StatusCode(201);
+            }
+            catch (Exception erro)
+            {
+                return BadRequest(erro);
+            }
+        }
+
+
+        [HttpPut("{idClinica}")]
+        public IActionResult Atualizar(int idClinica, Clinica clinicaAtualizada)
+        {
+            try
+            {
+                _clinicaRepository.Atualizar(idClinica, clinicaAtualizada);
+
+                return NoContent();
+            }
+            catch (Exception erro)
+            {
+                return BadRequest(erro);
+            }
+        }
     }
+
 }
