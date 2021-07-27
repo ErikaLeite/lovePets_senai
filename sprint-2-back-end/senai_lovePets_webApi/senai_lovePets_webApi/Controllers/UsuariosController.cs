@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using senai_lovePets_webApi.Domains;
 using senai_lovePets_webApi.Interfaces;
@@ -22,6 +23,7 @@ namespace senai_lovePets_webApi.Controllers
             _usuarioRepository = new UsuarioRepository();
         }
 
+        [Authorize(Roles = "1")]
         [HttpGet]
         public IActionResult ListarTodos()
         {
@@ -36,6 +38,7 @@ namespace senai_lovePets_webApi.Controllers
             }
         }
 
+        [Authorize(Roles = "1")]
         [HttpGet("{idUser}")]
         public IActionResult BuscarPorId(int idUser)
         {
@@ -49,6 +52,7 @@ namespace senai_lovePets_webApi.Controllers
             }
         }
 
+        [Authorize(Roles = "1")]
         [HttpPost]
         public IActionResult Cadastrar(Usuario novoUser)
         {
@@ -64,6 +68,7 @@ namespace senai_lovePets_webApi.Controllers
             }
         }
 
+        [Authorize(Roles = "1")]
         [HttpPut("{idUser}")]
         public IActionResult Atualizar(int idUser, Usuario userAtualizado)
         {
@@ -72,6 +77,22 @@ namespace senai_lovePets_webApi.Controllers
                 _usuarioRepository.Atualizar(idUser, userAtualizado);
 
                 return NoContent();
+            }
+            catch (Exception erro)
+            {
+                return BadRequest(erro);
+            }
+        }
+
+        [Authorize(Roles = "1")]
+        [HttpDelete("{idUser}")]
+        public IActionResult Deletar(int idUser)
+        {
+            try
+            {
+                _usuarioRepository.Deletar(idUser);
+
+                return StatusCode(204);
             }
             catch (Exception erro)
             {

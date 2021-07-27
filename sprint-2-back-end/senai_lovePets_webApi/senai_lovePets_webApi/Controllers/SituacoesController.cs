@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using senai_lovePets_webApi.Domains;
 using senai_lovePets_webApi.Interfaces;
@@ -22,7 +23,8 @@ namespace senai_lovePets_webApi.Controllers
             _situacaoRepository = new SituacaoRepository();
         }
 
-       [HttpGet]
+        [Authorize(Roles = "1")]
+        [HttpGet]
        public IActionResult ListarTodos()
        {
            try
@@ -36,6 +38,7 @@ namespace senai_lovePets_webApi.Controllers
        }
 
 
+        [Authorize(Roles = "1")]
         [HttpGet("{idSituacao}")]
         public IActionResult BuscarPorId(int idSituacao)
         {
@@ -49,6 +52,7 @@ namespace senai_lovePets_webApi.Controllers
             }
         }
 
+        [Authorize(Roles = "1")]
         [HttpPost]
         public IActionResult Cadastrar(Situacao novaSituacao)
         {
@@ -64,6 +68,7 @@ namespace senai_lovePets_webApi.Controllers
             }
         }
 
+        [Authorize(Roles = "1")]
         [HttpPut("{idSituacao}")]
         public IActionResult Atualizar(int idSituacao, Situacao situacaoAtualizada)
         {
@@ -72,6 +77,22 @@ namespace senai_lovePets_webApi.Controllers
                 _situacaoRepository.Atualizar(idSituacao, situacaoAtualizada);
 
                 return NoContent();
+            }
+            catch (Exception erro)
+            {
+                return BadRequest(erro);
+            }
+        }
+
+        [Authorize(Roles = "1")]
+        [HttpDelete("{idSituacao}")]
+        public IActionResult Deletar(int idSituacao)
+        {
+            try
+            {
+                _situacaoRepository.Deletar(idSituacao);
+
+                return StatusCode(204);
             }
             catch (Exception erro)
             {

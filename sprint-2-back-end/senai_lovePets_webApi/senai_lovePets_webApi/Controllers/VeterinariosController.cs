@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using senai_lovePets_webApi.Domains;
 using senai_lovePets_webApi.Interfaces;
@@ -22,6 +23,7 @@ namespace senai_lovePets_webApi.Controllers
             _vetRepository = new VeterinarioRepository();
         }
 
+        [Authorize(Roles = "1")]
         [HttpGet]
         public IActionResult ListarTodos()
         {
@@ -35,6 +37,7 @@ namespace senai_lovePets_webApi.Controllers
             }
         }
 
+        [Authorize(Roles = "1")]
         [HttpGet("{idVet}")]
         public IActionResult BuscarPorId(int idVet)
         {
@@ -48,6 +51,7 @@ namespace senai_lovePets_webApi.Controllers
             }
         }
 
+        [Authorize(Roles = "1")]
         [HttpPost]
         public IActionResult Cadastrar(Veterinario novoVet)
         {
@@ -63,6 +67,7 @@ namespace senai_lovePets_webApi.Controllers
             }
         }
 
+        [Authorize(Roles = "1")]
         [HttpPut("{idVet}")]
         public IActionResult Atualizar(int idVet, Veterinario vetAtualizado)
         {
@@ -71,6 +76,23 @@ namespace senai_lovePets_webApi.Controllers
                 _vetRepository.Atualizar(idVet, vetAtualizado);
 
                 return NoContent();
+            }
+            catch (Exception erro)
+            {
+                return BadRequest(erro);
+            }
+        }
+
+
+        [Authorize(Roles = "1")]
+        [HttpDelete("{idVet}")]
+        public IActionResult Deletar(int idVet)
+        {
+            try
+            {
+                _vetRepository.Deletar(idVet);
+
+                return StatusCode(204);
             }
             catch (Exception erro)
             {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using senai_lovePets_webApi.Domains;
 using senai_lovePets_webApi.Interfaces;
@@ -21,7 +22,7 @@ namespace senai_lovePets_webApi.Controllers
         {
             _donoRepository = new DonoRepository();
         }
-
+       [Authorize(Roles = "1")]
        [HttpGet]
        public IActionResult ListarTodos()
        {
@@ -35,19 +36,22 @@ namespace senai_lovePets_webApi.Controllers
            }
        }
 
-        [HttpGet("{idDono}")]
-        public IActionResult BuscarPorId(int idDono)
-        {
-            try
-            {
-                return Ok(_donoRepository.BuscarPorID(idDono));
-            }
-            catch (Exception erro)
-            {
-                return BadRequest(erro);
-            }
-        }
+       [Authorize(Roles = "1")]
+       [HttpGet("{idDono}")]
+       public IActionResult BuscarPorId(int idDono)
+       {
+           try
+           {
+               return Ok(_donoRepository.BuscarPorID(idDono));
+           }
+           catch (Exception erro)
+           {
+               return BadRequest(erro);
+           }
+       }
 
+
+        [Authorize(Roles = "1")]
         [HttpPost]
         public IActionResult Cadastrar(Dono novoDono)
         {
@@ -63,6 +67,7 @@ namespace senai_lovePets_webApi.Controllers
             }
         }
 
+        [Authorize(Roles = "1")]
         [HttpPut("{idDono}")]
         public IActionResult Atualizar(int idDono, Dono donoAtualizado)
         {
@@ -71,6 +76,22 @@ namespace senai_lovePets_webApi.Controllers
                 _donoRepository.Atualizar(idDono, donoAtualizado);
 
                 return NoContent();
+            }
+            catch (Exception erro)
+            {
+                return BadRequest(erro);
+            }
+        }
+
+        [Authorize(Roles = "1")]
+        [HttpDelete("{idDono}")]
+        public IActionResult Deletar(int idDono)
+        {
+            try
+            {
+                _donoRepository.Deletar(idDono);
+
+                return StatusCode(204);
             }
             catch (Exception erro)
             {

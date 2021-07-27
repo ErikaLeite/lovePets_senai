@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using senai_lovePets_webApi.Domains;
 using senai_lovePets_webApi.Interfaces;
@@ -22,6 +23,7 @@ namespace senai_lovePets_webApi.Controllers
             _tipoPetRepository = new TipoPetRepository();
         }
 
+        [Authorize(Roles = "1")]
         [HttpGet]
         public IActionResult ListarTodos()
         {
@@ -35,6 +37,7 @@ namespace senai_lovePets_webApi.Controllers
             }
         }
 
+        [Authorize(Roles = "1")]
         [HttpGet("{idTipoPet}")]
         public IActionResult BuscarPorId(int idTipoPet)
         {
@@ -48,6 +51,7 @@ namespace senai_lovePets_webApi.Controllers
             }
         }
 
+        [Authorize(Roles = "1")]
         [HttpPost]
         public IActionResult Cadastrar(TipoPet novoTipo)
         {
@@ -63,6 +67,7 @@ namespace senai_lovePets_webApi.Controllers
             }
         }
 
+        [Authorize(Roles = "1")]
         [HttpPut("{idTipoPet}")]
         public IActionResult Atualizar(int idTipoPet, TipoPet tipoPetAtualizado)
         {
@@ -77,6 +82,23 @@ namespace senai_lovePets_webApi.Controllers
                 return BadRequest(erro);
             }
         }
+
+        [Authorize(Roles = "1")]
+        [HttpDelete("{idTipoPet}")]
+        public IActionResult Deletar(int idTipoPet)
+        {
+            try
+            {
+                _tipoPetRepository.Deletar(idTipoPet);
+
+                return StatusCode(204);
+            }
+            catch (Exception erro)
+            {
+                return BadRequest(erro);
+            }
+        }
+
 
 
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using senai_lovePets_webApi.Domains;
 using senai_lovePets_webApi.Interfaces;
@@ -22,6 +23,8 @@ namespace senai_lovePets_webApi.Controllers
             _racaRepository = new RacaRepository();
         }
 
+
+        [Authorize(Roles = "1")]
         [HttpGet]
        public IActionResult ListarTodos()
        {
@@ -35,6 +38,8 @@ namespace senai_lovePets_webApi.Controllers
            }
        }
 
+
+        [Authorize(Roles = "1")]
         [HttpGet("{idRaca}")]
         public IActionResult BuscarPorId(int idRaca)
         {
@@ -48,6 +53,8 @@ namespace senai_lovePets_webApi.Controllers
             }
         }
 
+
+        [Authorize(Roles = "1")]
         [HttpPost]
         public IActionResult Cadastrar(Raca novaRaca)
         {
@@ -63,6 +70,8 @@ namespace senai_lovePets_webApi.Controllers
             }
         }
 
+
+        [Authorize(Roles = "1")]
         [HttpPut("{idRaca}")]
         public IActionResult Atualizar(int idRaca, Raca racaAtualizada)
         {
@@ -71,6 +80,23 @@ namespace senai_lovePets_webApi.Controllers
                 _racaRepository.Atualizar(idRaca, racaAtualizada);
 
                 return NoContent();
+            }
+            catch (Exception erro)
+            {
+                return BadRequest(erro);
+            }
+        }
+
+
+        [Authorize(Roles = "1")]
+        [HttpDelete("{idRaca}")]
+        public IActionResult Deletar(int idRaca)
+        {
+            try
+            {
+                _racaRepository.Deletar(idRaca);
+
+                return StatusCode(204);
             }
             catch (Exception erro)
             {
